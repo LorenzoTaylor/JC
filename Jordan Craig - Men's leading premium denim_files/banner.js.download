@@ -1,0 +1,82 @@
+
+    var hasLoaded = false;
+
+    function setCookie(name, value, expireInDays) {
+        var d = new Date();
+        d.setTime(d.getTime() + expireInDays * 24 * 60 * 60 * 1000);
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function shouldLoadDeeplinkBanner() {
+        var cookie = document.cookie;
+        if (cookie) {
+            return (
+            this.hasLoaded == false &&
+            !cookie.includes("hideDeeplinkBanner")
+            );
+        }
+        return this.hasLoaded == false;
+    }
+
+    function generateDeeplinkBanner() {
+        this.hasLoaded = true;
+        var ua = navigator.userAgent.toLowerCase();
+        console.log(ua)
+        var isWebView = ua.includes("wv");
+        var isApple = (ua.includes("ios") || ua.includes("iphone")) && ua.includes("chrome");
+        var isAndroid = ua.includes("android") && ua.includes("chrome");
+        if (isAndroid || isApple) {
+            document.head.insertAdjacentHTML(
+            "afterbegin",
+            '<link rel="stylesheet" href="http://api.vennapps.com/deeplink-banner/style.css"></link>'
+            );
+            document.body.insertAdjacentHTML(
+            "afterbegin",
+            `<div class="venn-deeplink-banner" id="venn-deeplink-banner">
+                <div class="venn-left-content">
+                <div class="venn-left-content-div">
+                    <div style="float: left; margin-right: 15px;">
+                        <img class="venn-app-icon" src="">
+                    </div>
+                    <div style="float: left;">
+                        <h3>Jordan Craig</h3>
+                        <br>
+                        <p>Download our app</p>
+                    </div>
+                </div>
+                </div>
+                <div class="venn-right-content">
+                <div class="venn-right-content-div">
+                    ${isAndroid ? `<a href="https://play.google.com/store/apps/details?id=com.vennapps.jordancraig"><img class="venn-play-store" src="https://scripts.vennapps.com/deeplink-banner/images/android.png" width="100" title="Play Store"></a>` : ``}
+                    ${isApple ? `<a href="https://apps.apple.com/us/app/jordan-craig/id6477457659"><img src="https://scripts.vennapps.com/deeplink-banner/images/ios.png" width="100" title="App Store"></a>` : ``}
+                </div>
+                </div>
+                <div class="venn-close-button" onclick="hideDeeplinkBanner()">X</div>
+            </div>`
+            );
+        }
+    }
+
+    window.onload = function () {
+        loadDeeplinkBannerContent();
+    };
+
+    function loadDeeplinkBannerContent() {
+        try {
+            if (this.shouldLoadDeeplinkBanner()) {
+                this.generateDeeplinkBanner();
+            }
+        } catch (error) {
+            console.error(
+            `There was an error obtaining deeplink content:`,
+            JSON.stringify(error)
+            );
+        }
+    }
+
+    function hideDeeplinkBanner() {
+        var x = document.getElementById("venn-deeplink-banner");
+        x.style.display = "none";
+        setCookie("hideDeeplinkBanner", "true", 1);
+    }
