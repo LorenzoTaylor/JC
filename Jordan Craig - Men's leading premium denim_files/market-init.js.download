@@ -1,0 +1,125 @@
+;(function () {
+
+  const NOSTO_MARKET_SCRIPT_PATH = "/script/shopify/market/nosto.js"
+  const NOSTO_SCRIPT_PATH = "/script/shopify/nosto.js"
+  const NOSTO_MARKETS_PREVIEW_PARAM = "nostomarketspreview"
+  const nostoMarketScript = document.createElement("script")
+  nostoMarketScript.type = "text/javascript"
+  nostoMarketScript.async = true
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function setCookie(cname, cvalue, expires) {
+
+    const expDate = expires ? new Date(
+      // in case expires is an integer, it should specify the number of days till the cookie expires
+      typeof expires === 'number' ? new Date().getTime() + (expires * 864e5) :
+      // else expires should be either a Date object or in a format recognized by Date.parse()
+      expires
+    ) : null;
+
+    const expiryString = "expires="+ (expDate ? expDate.toUTCString() : '')
+
+    document.cookie = encodeURIComponent(cname) + "=" + encodeURIComponent(cvalue) + ";" + expiryString + ";path=/";
+  }
+
+  function isMarketsPreviewEnabled() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const isPreviewEnabled = urlParams.get(NOSTO_MARKETS_PREVIEW_PARAM) === "true"
+    const isPreviewCookieEnabled = getCookie(NOSTO_MARKETS_PREVIEW_PARAM) === "true"
+
+    if (isPreviewEnabled) {
+      setCookie(NOSTO_MARKETS_PREVIEW_PARAM, "true", { expires: 1 / 24 })
+      return true
+    }
+
+    if (isPreviewCookieEnabled) {
+      return true
+    }
+
+    setCookie(NOSTO_MARKETS_PREVIEW_PARAM, "false", { expires: -1 })
+    return false
+  }
+
+  function buildNostoMarketsUrl(props, shopId) {
+    const url = `/apps/proxy${props.path}`
+    const nostoMerchant = `shopify-${shopId}`
+    const baseParams = {
+      merchant: nostoMerchant,
+      ...(isMarketsPreviewEnabled() && { preview: true })
+    }
+    const params = new URLSearchParams({ ...baseParams, ...props.data })
+    return `${url}?${params}`
+  }
+
+  function buildFromTagging() {
+    const nostoMarketElement = document.querySelector(".nosto_market")
+    if (nostoMarketElement) {
+      const nostoMarketId = nostoMarketElement.querySelector(".id")?.innerHTML
+      const nostoMarketLocale = nostoMarketElement.querySelector(".locale")?.innerHTML
+
+      if (nostoMarketId && nostoMarketLocale) {
+        return { data: { market: nostoMarketId, locale: nostoMarketLocale }, path: NOSTO_MARKET_SCRIPT_PATH }
+      }
+    }
+    return null
+  }
+
+  function extractShopId() {
+    const nostoShopifyShopElement = document.querySelector(".nosto_shopify_shop")
+    if (nostoShopifyShopElement) {
+      const shopIdElement = nostoShopifyShopElement.querySelector(".id");
+      return shopIdElement?.innerHTML
+    }
+    return null
+  }
+
+  function extractRegionLanguage(customerLocale) {
+    const regionRegEx = /(?<lang>[a-z]{2})-(?<region>[A-Z]{2})/
+    const resultArray = regionRegEx.exec(customerLocale)
+    if (resultArray?.groups?.lang && resultArray?.groups?.region) {
+      return { locale: resultArray.groups.lang, region: resultArray.groups.region }
+    }
+    return null
+  }
+
+  function buildFromCheckoutObject() {
+    if (window['Shopify']?.checkout?.customer_locale) {
+      const customerLocale = window['Shopify'].checkout.customer_locale
+      const result = extractRegionLanguage(customerLocale)
+
+      if (result) {
+        return { data: result, path: NOSTO_MARKET_SCRIPT_PATH }
+      }
+    }
+    return null
+  }
+
+  const params = buildFromTagging() ?? buildFromCheckoutObject() ?? { data: {}, path: NOSTO_SCRIPT_PATH }
+  const shopId = extractShopId()
+
+  if (shopId) {
+    nostoMarketScript.src = buildNostoMarketsUrl(params, shopId)
+
+    const firstScriptTag = document.querySelector("script")
+    if (firstScriptTag && firstScriptTag.parentNode) {
+      firstScriptTag.parentNode.insertBefore(nostoMarketScript, firstScriptTag)
+    }
+  } else {
+    console.error("Nosto not able to render script. Can't find Shop ID. ")
+  }
+})()

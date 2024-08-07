@@ -1,0 +1,30 @@
+.swal2-container {
+  z-index: 10000 !important;
+}
+/* CSS to style the banner */
+.rocket-push-footer {
+  width: 100%;
+  background-color: transparent;
+  text-align: center;
+}
+
+.rocket-push-footer img {
+  height: 30px;
+  margin: 0 auto;
+  display: block;
+}
+
+.rocket-push-footer p {
+  color: #888;
+  font-size: 9px;
+  margin: 0;
+}
+
+.rocket-push-footer a {
+  color: #888;
+  text-decoration: none;
+}
+
+.rocket-push-footer a:hover {
+  text-decoration: underline;
+}

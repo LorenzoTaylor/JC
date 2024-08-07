@@ -1,0 +1,72 @@
+
+    (function() {
+      var baseURL = "https://cdn.shopify.com/shopifycloud/checkout-web/assets/";
+      var scripts = ["https://cdn.shopify.com/shopifycloud/checkout-web/assets/runtime.latest.en.4149a80fb62eabcb165c.js","https://cdn.shopify.com/shopifycloud/checkout-web/assets/5042.latest.en.7716928e6909f84ccd90.js","https://cdn.shopify.com/shopifycloud/checkout-web/assets/9809.latest.en.b8a0813fc2b5e3ae5ac6.js","https://cdn.shopify.com/shopifycloud/checkout-web/assets/5742.latest.en.229645047f1cf5d25935.js","https://cdn.shopify.com/shopifycloud/checkout-web/assets/app.latest.en.21f4e32570cf641bbed0.js","https://cdn.shopify.com/shopifycloud/checkout-web/assets/3940.latest.en.f469e5208a9c16c43b8e.js","https://cdn.shopify.com/shopifycloud/checkout-web/assets/Information.latest.en.b8f9b433948668d56df9.js"];
+      var styles = ["https://cdn.shopify.com/shopifycloud/checkout-web/assets/5042.latest.en.39e037bce4997f545a3a.css","https://cdn.shopify.com/shopifycloud/checkout-web/assets/app.latest.en.5da3f52c706a09a6da39.css","https://cdn.shopify.com/shopifycloud/checkout-web/assets/9119.latest.en.5f7923dabcdd4b2501e7.css"];
+      var fontPreconnectUrls = ["https://fonts.shopifycdn.com"];
+      var fontPrefetchUrls = ["https://fonts.shopifycdn.com/helvetica/helvetica_n4.fe093fe9ca22a15354813c912484945a36b79146.woff2?h1=am9yZGFuY3JhaWcuY29t&hmac=2c3652622ab94dfe1617a6826bd4cc3b8d22c8bceb91a70df7521430b963b91d","https://fonts.shopifycdn.com/helvetica/helvetica_n7.39bee04bd277a9c4e94e2fd42d53f4e3c0afb8a5.woff2?h1=am9yZGFuY3JhaWcuY29t&hmac=f698f50e8957ee3f80aa6a3baf853ac5f6cc2a42faf81706843f83dc1aca692f"];
+      var imgPrefetchUrls = ["https://cdn.shopify.com/s/files/1/1150/4428/files/jc-logo-high-res_f40eecfc-6cbf-4ad8-b221-1f127775b13c_x320.png?v=1719408394"];
+
+      function preconnect(url, callback) {
+        var link = document.createElement('link');
+        link.rel = 'dns-prefetch preconnect';
+        link.href = url;
+        link.crossOrigin = '';
+        link.onload = link.onerror = callback;
+        document.head.appendChild(link);
+      }
+
+      function preconnectAssets() {
+        var resources = [baseURL].concat(fontPreconnectUrls);
+        var index = 0;
+        (function next() {
+          var res = resources[index++];
+          if (res) preconnect(res, next);
+        })();
+      }
+
+      function prefetch(url, as, callback) {
+        var link = document.createElement('link');
+        if (link.relList.supports('prefetch')) {
+          link.rel = 'prefetch';
+          link.fetchPriority = 'low';
+          link.as = as;
+          if (as === 'font') link.type = 'font/woff2';
+          link.href = url;
+          link.crossOrigin = '';
+          link.onload = link.onerror = callback;
+          document.head.appendChild(link);
+        } else {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);
+          xhr.onloadend = callback;
+          xhr.send();
+        }
+      }
+
+      function prefetchAssets() {
+        var resources = [].concat(
+          scripts.map(function(url) { return [url, 'script']; }),
+          styles.map(function(url) { return [url, 'style']; }),
+          fontPrefetchUrls.map(function(url) { return [url, 'font']; }),
+          imgPrefetchUrls.map(function(url) { return [url, 'image']; })
+        );
+        var index = 0;
+        (function next() {
+          var res = resources[index++];
+          if (res) prefetch(res[0], res[1], next);
+        })();
+      }
+
+      function onLoaded() {
+        preconnectAssets();
+        prefetchAssets();
+      }
+
+      if (document.readyState === 'complete') {
+        onLoaded();
+      } else {
+        addEventListener('load', onLoaded);
+      }
+    })();
+  

@@ -1,0 +1,1207 @@
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+
+      var $parcel$global = globalThis;
+    
+var $parcel$modules = {};
+var $parcel$inits = {};
+
+var parcelRequire = $parcel$global["parcelRequire0b3e"];
+
+if (parcelRequire == null) {
+  parcelRequire = function(id) {
+    if (id in $parcel$modules) {
+      return $parcel$modules[id].exports;
+    }
+    if (id in $parcel$inits) {
+      var init = $parcel$inits[id];
+      delete $parcel$inits[id];
+      var module = {id: id, exports: {}};
+      $parcel$modules[id] = module;
+      init.call(module.exports, module, module.exports);
+      return module.exports;
+    }
+    var err = new Error("Cannot find module '" + id + "'");
+    err.code = 'MODULE_NOT_FOUND';
+    throw err;
+  };
+
+  parcelRequire.register = function register(id, init) {
+    $parcel$inits[id] = init;
+  };
+
+  $parcel$global["parcelRequire0b3e"] = parcelRequire;
+}
+
+var parcelRegister = parcelRequire.register;
+parcelRegister("doa0w", function(module, exports) {
+
+$parcel$export(module.exports, "urlBase64ToUint8Array", () => $9bf5478b2d4834ed$export$a5a942eae6f1bfed);
+$parcel$export(module.exports, "dynamicallyLoadScript", () => $9bf5478b2d4834ed$export$7c9b905defd2c795);
+function $9bf5478b2d4834ed$export$a5a942eae6f1bfed(base64String) {
+    const padding = "=".repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for(let i = 0; i < rawData.length; ++i)outputArray[i] = rawData.charCodeAt(i);
+    return outputArray;
+}
+function $9bf5478b2d4834ed$export$7c9b905defd2c795(url) {
+    const script = document.createElement("script"); // create a script DOM node
+    script.src = url; // set its src to the provided URL
+    document.head.appendChild(script); // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
+
+});
+
+const $e83591b9eb3a6a78$export$43b543a1ac59b427 = "BKsFWsWWWLsJ0sHgFFcFYtjQqBARyQ_SdjVzl5pwFBCfxaLzps9VZkQttDqLHWXqBEmcJc04AJ2s8CX8vaNGZL0";
+const $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3 = "https://app.rocketpush.io";
+const $e83591b9eb3a6a78$export$78188db61609330b = "https://message.rocketpush.io";
+
+
+
+const $19a6bb8bdb5af322$var$fetchFunction = window.fetch;
+async function $19a6bb8bdb5af322$export$8206e8d612b3e63() {
+    try {
+        const data = await $19a6bb8bdb5af322$export$d5a1e65f8aa21b51(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/shop/settings?domain=${window.Shopify.shop || window.location.host}`);
+        return data;
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+async function $19a6bb8bdb5af322$export$3de01744a82b21a4() {
+    try {
+        const data = await $19a6bb8bdb5af322$export$d5a1e65f8aa21b51(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/configuration?domain=${window.Shopify.shop || window.location.host}`);
+        return JSON.parse(data[0].configuration);
+    } catch (err) {
+        console.log(err);
+    }
+}
+function $19a6bb8bdb5af322$export$d5a1e65f8aa21b51(endpoint, method = "GET", { body: body, ...customConfig } = {}) {
+    const headers = {
+        "Content-Type": "application/json",
+        "bypass-tunnel-reminder": 1,
+        "ngrok-skip-browser-warning": "69420"
+    };
+    const config = {
+        method: method,
+        ...customConfig,
+        headers: {
+            ...headers,
+            ...customConfig.headers
+        },
+        mode: "cors"
+    };
+    if (body) config.body = JSON.stringify(body);
+    return $19a6bb8bdb5af322$var$fetchFunction(`${endpoint}`, config).then(async (response)=>{
+        if (response.ok) return await response.json();
+        else {
+            const errorMessage = await response.text();
+            return Promise.reject(new Error(errorMessage));
+        }
+    }).catch((err)=>console.error(err));
+}
+async function $19a6bb8bdb5af322$export$c0e54dca4b1c7623() {
+    try {
+        //const data = await sendRequest(`${API_ROCKET_PUSH_BASE_URL}/api/shop/getShopifyDomain?domain=${window.location.host}`);
+        const data = window.Shopify.shop;
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+function $8a29086081032de5$var$closePopup() {
+    document.getElementById("rocketPopup").classList.remove("active");
+    document.getElementById("rocket-modalOverlay").classList.remove("active"); // Hide modal overlay
+}
+async function $8a29086081032de5$export$e02251cfbe407ee6() {
+    const phoneNumberInput = document.getElementById("rocket-phoneNumber");
+    const phoneNumber = phoneNumberInput.value;
+    localStorage.setItem("rocket-whatsappPhone", phoneNumber);
+    const checkbox = document.getElementById("rocket-optInPolicy");
+    const checkboxWrapper = document.getElementById("rocket-policyOption");
+    const rocketPopupContent = document.getElementById("rocketPopupContent");
+    // Remove the 'rocket-highlight' class in case it was added in a previous submission attempt
+    phoneNumberInput.classList.remove("rocket-highlight");
+    checkboxWrapper.classList.remove("rocket-highlight");
+    // Check if the phone number input is empty or not a valid phone number
+    const phoneNumberPattern = /^\d+$/;
+    if (!phoneNumber || !phoneNumberPattern.test(phoneNumber)) phoneNumberInput.classList.add("rocket-highlight");
+    // Check if the checkbox is not checked
+    if (!checkbox.checked) checkboxWrapper.classList.add("rocket-highlight");
+    // If either the phone number input or the checkbox is invalid, return
+    if (!phoneNumberPattern.test(phoneNumber) || !checkbox.checked) return;
+    try {
+        const pushSubId = localStorage.getItem("rocket_push_pushsub_id");
+        const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/subscribePhoneNumber`, "POST", {
+            body: {
+                phone_number: phoneNumber,
+                domain: window.Shopify?.shop,
+                pushSub_id: pushSubId ? parseInt(pushSubId) : null
+            }
+        });
+        localStorage.getItem("RockDebug") && console.log("phone res:", res);
+        localStorage.setItem("rocket-phone-id", res.id);
+        if (res && res.ok) {
+            feedbackMessage.classList.remove("rocket-hidden");
+            rocketPopupContent.classList.add("rocket-hidden");
+        } else {
+            feedbackMessage.classList.remove("rocket-hidden");
+            feedbackMessage.classList.add("error");
+            rocketPopupContent.classList.add("rocket-hidden");
+        }
+        const closeFeedbackMessage = document.getElementById("closeFeedbackMessage");
+        closeFeedbackMessage.addEventListener("click", $8a29086081032de5$var$closePopup);
+    } catch (err) {
+        console.log(err);
+    }
+}
+function $8a29086081032de5$export$14532bf50411dad() {
+    const popped = localStorage.getItem("whatsappPopped");
+    if (!popped) {
+        document.getElementById("rocket-modalOverlay").classList.add("active"); // Show modal overlay
+        document.getElementById("rocketPopup").classList.add("active"); // Show popup
+        document.getElementById("rocket-phoneNumber").addEventListener("input", function(e) {
+            e.target.value = e.target.value.replace(/[^\d]/g, "");
+        });
+        document.getElementById("rocketWhatsappSubmitButton").addEventListener("click", $8a29086081032de5$export$e02251cfbe407ee6);
+        document.getElementById("rocketClose").addEventListener("click", $8a29086081032de5$var$closePopup);
+    }
+    localStorage.setItem("whatsappPopped", "true");
+}
+function $8a29086081032de5$export$603308a806233c16() {
+    document.getElementById("").classList.remove("active");
+    document.getElementById("rocket-modalOverlay").classList.remove("active"); // Hide modal overlay
+}
+function $8a29086081032de5$export$909b206d73f171f6(config) {
+    console.log("Showing whatsapp:", config);
+    if (config.whatsappPromptConfig && config.whatsappPromptConfig.show) {
+        // Assume these values are retrieved from the backend
+        var buttonColor = config.whatsappPromptConfig.submitButton.bgcolor; // Example button color
+        var titleText = "Subscribe to get new updates"; // Example title text
+        var buttonText = "Signup with Whatsapp"; // Example button text
+        var descriptionText = config.whatsappPromptConfig.description.text;
+        var imageUrl = "https://firebasestorage.googleapis.com/v0/b/rocket-346418.appspot.com/o/images%2Fgoogle%20meme.jpg463f4e89-906d-475c-b115-adb3fb37714b?alt=media&token=e925bd5c-e52a-4d23-844f-49586d2283b9"; // Example image URL
+        imageUrl = config.whatsappPromptConfig.image;
+        // Apply the values to the modal elements
+        document.getElementById("rocketWhatsappSubmitButton").style.backgroundColor = buttonColor;
+        document.getElementById("modalTitle").innerText = titleText;
+        document.getElementById("rocketWhatsappSubmitButton").innerText = buttonText;
+        document.getElementById("modalDescription").innerText = descriptionText;
+        document.getElementById("modalImage").src = imageUrl;
+        $8a29086081032de5$export$14532bf50411dad();
+    }
+}
+
+
+function $c5508adf7fa64932$export$a6d2ecc0cd4b3a47() {
+    console.log("Whatsapp widget");
+    document.getElementById("rocket-whatsapp-chat").classList.add("active"); // Show modal overlay
+}
+function $c5508adf7fa64932$export$b8f31d62f04db8da(configurations) {
+    try {
+        if (configurations?.whatsappChatButton?.show) $c5508adf7fa64932$export$a6d2ecc0cd4b3a47();
+    } catch (err) {
+        console.log("whatsapp config not set", err);
+    }
+}
+
+
+
+var $doa0w = parcelRequire("doa0w");
+function $80888842c5f91d06$var$addHTMLOverlay() {
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (!isIOS) {
+        const overlay = '<div style=" position: fixed;  display: none;  width: 100%;  height: 100%;  top: 0;  left: 0;  right: 0;  bottom: 0;  background-color: rgba(0,0,0,0.7);  z-index: 30;   cursor: pointer;" id="rocket-push-overlay"><div style="position: absolute; top: 50%; left: 50%; color: white; transform: translate(-50%,-50%);   -ms-transform: translate(-50%,-50%);"><svg style="height: 150px; margin-left: -25px;" data-name="1-Arrow Up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="white" d="m26.71 10.29-10-10a1 1 0 0 0-1.41 0l-10 10 1.41 1.41L15 3.41V32h2V3.41l8.29 8.29z"/></svg><p style="font-size: 50px; margin: 10px 0;">Never miss a sale</p><p style="font-size: 18px;">Subscribe to get updates on our new products and exclusive promotions</p></div></div>';
+        document.body.insertAdjacentHTML("afterbegin", overlay);
+        const overlayElement = document.getElementById("rocket-push-overlay");
+        overlayElement.addEventListener("click", function() {
+            // Hide the overlay when clicked
+            overlayElement.style.display = "none";
+        });
+    } else console.log("IOS not supported");
+}
+function $80888842c5f91d06$var$turnOnOverlay() {
+    document.getElementById("rocket-push-overlay").style.display = "block";
+}
+function $80888842c5f91d06$var$turnOffOverlay() {
+    document.getElementById("rocket-push-overlay").style.display = "none";
+}
+function $80888842c5f91d06$var$insertGATag(pushId) {
+    if (pushId) gtag("config", "UA-236341136-1", {
+        dimension2: pushId
+    });
+    else gtag("config", "UA-236341136-1");
+    $doa0w.dynamicallyLoadScript("https://www.googletagmanager.com/gtag/js?id=UA-236341136-1");
+}
+async function $80888842c5f91d06$export$f22da7240b7add18() {
+    // store setting
+    const storeSetting = await (0, $19a6bb8bdb5af322$export$8206e8d612b3e63)((0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3));
+    const logoImage = storeSetting?.logoimgsrc ? storeSetting.logoimgsrc : "";
+    // subscriber prompt
+    const configurations = await (0, $19a6bb8bdb5af322$export$3de01744a82b21a4)((0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3));
+    console.log("Starting the script");
+    (0, $8a29086081032de5$export$909b206d73f171f6)(configurations);
+    (0, $c5508adf7fa64932$export$b8f31d62f04db8da)(configurations);
+    var klaviyoDomains = [
+        "alishtest6.myshopify.com",
+        "jcdenim.myshopify.com"
+    ];
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //DEFAULT script for all shops. Else for klaviyo integrated shops
+    if (!klaviyoDomains.includes(window.Shopify.shop)) {
+        //OVERLAY BUTTON START -----------------------
+        // Function to check if the current URL path contains "/product"
+        function isProductPage() {
+            return window.location.pathname.includes("/product");
+        }
+        // Function to create and display the overlay button
+        async function showPriceDropButton() {
+            // Check if the overlay should be added based on the stored response
+            var priceDropResponse = localStorage.getItem("priceDropResponse");
+            if (priceDropResponse === null || isResponseExpired(priceDropResponse)) {
+                // Save the response in localStorage with timestamp and expiration
+                var response = await getPriceDrop();
+                var overlayData = {
+                    response: response,
+                    timestamp: Date.now(),
+                    expiration: 300000
+                };
+                localStorage.setItem("priceDropResponse", JSON.stringify(overlayData));
+                // Check if the overlay should be added
+                if (response.enabled) addPriceDropButton();
+            } else {
+                // Parse the stored response
+                var storedResponse = JSON.parse(priceDropResponse);
+                // Check if the overlay should be added
+                if (storedResponse.response.enabled) addPriceDropButton();
+            }
+        }
+        // Function to check if the stored response has expired
+        function isResponseExpired(response) {
+            var storedResponse = JSON.parse(response);
+            // Compare the stored response timestamp with the current time
+            var currentTime = Date.now();
+            var expirationTime = storedResponse.timestamp + storedResponse.expiration;
+            return currentTime > expirationTime;
+        }
+        function addPriceDropButton() {
+            var button = document.createElement("button");
+            button.style.position = "fixed";
+            button.style.bottom = "90px"; // Adjusted position
+            button.style.left = "20px";
+            button.style.padding = "12px"; // Increased padding
+            button.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+            button.style.border = "none";
+            button.style.borderRadius = "50%"; // Rounded shape
+            button.style.cursor = "pointer";
+            button.style.transition = "transform 0.2s"; // Animation duration
+            button.style.zIndex = 2147483647; // Set a high z-index value
+            // Add a class to the button for easier targeting
+            button.classList.add("rocket-pricedrop-button");
+            // Create the bell icon using Font Awesome
+            var bellIcon = document.createElement("i");
+            bellIcon.classList.add("fas", "fa-bell");
+            // Append the bell icon to the button
+            button.appendChild(bellIcon);
+            // Add hover animation
+            button.addEventListener("mouseenter", function() {
+                button.style.transform = "scale(1.1)"; // Scale up on hover
+            });
+            button.addEventListener("mouseleave", function() {
+                button.style.transform = "scale(1)"; // Scale back to normal
+            });
+            // Add click event listener to the button
+            button.addEventListener("click", function() {
+                try {
+                    var path = window.location.pathname;
+                    // Extract the portion of the path after "/products"
+                    var productPath = path.match(/\/products\/(.+)/);
+                    if (productPath) {
+                        // Append ".js" to the extracted product path
+                        var scriptPath = "/products/" + productPath[1] + ".js";
+                        // Make a fetch call to the script path
+                        (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(scriptPath).then((res)=>{
+                            console.log(res);
+                            // Process the fetched data
+                            var variantId = parseInt(new URLSearchParams(window.location.search).get("variant"));
+                            var variant;
+                            if (!isNaN(variantId)) // Find the variant by ID in the variants array
+                            variant = res.variants.find(function(v) {
+                                return v.id === variantId;
+                            });
+                            if (!variant) {
+                                console.log("Variant not found. Using the first variant.");
+                                variant = res.variants[0];
+                            }
+                            // Log the selected variant
+                            console.log(variant);
+                            var pdetails = {
+                                price: variant.price,
+                                product_id: res.id,
+                                title: res.title,
+                                variant_id: variant.id,
+                                image: res.images[0],
+                                productUrl: window.location.href,
+                                domain: window.Shopify.shop,
+                                pushSubID: parseInt(localStorage.rocket_push_pushsub_id)
+                            };
+                            console.log(pdetails);
+                            try {
+                                const payload = pdetails;
+                                (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/pricedrop`, "POST", {
+                                    body: payload
+                                }).then((res)=>{
+                                    console.log(`${res}`);
+                                    alert("You will be notified when the price drops.");
+                                });
+                            } catch (err) {
+                                console.log("could not favourite ", err);
+                            }
+                        });
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+            // Append the button to the document body
+            document.body.appendChild(button);
+            // Load Font Awesome CSS dynamically
+            var faStylesheet = document.createElement("link");
+            faStylesheet.rel = "stylesheet";
+            faStylesheet.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
+            document.head.appendChild(faStylesheet);
+        }
+        // Function to remove the overlay button
+        function removeOverlayButton() {
+            var button = document.querySelector(".overlay-button");
+            if (button) button.parentNode.removeChild(button);
+            var backInStockButton = document.querySelector(".backInStockButton");
+            if (backInStockButton) backInStockButton.parentNode.removeChild(backInStockButton);
+        }
+        // Check if the current page is a product page on initial page load
+        if (isProductPage() && localStorage.getItem("rocket_push_pushsub_id") !== null) {
+            showPriceDropButton();
+            showBackInStockButton(); // Add this line to show the back in stock button
+        }
+        // Check if the current page is a product page whenever the URL changes
+        window.addEventListener("popstate", function() {
+            if (isProductPage() && localStorage.getItem("rocket_push_pushsub_id") !== null) {
+                showPriceDropButton();
+                showBackInStockButton(); // Add this line to show the back in stock button
+                console.log("product page entered");
+            } else removeOverlayButton();
+        });
+        //OVERLAY BUTTON END -----------------------
+        // BACKINSTOCK
+        async function getProductAvailable() {
+            try {
+                var path = window.location.pathname;
+                var productPath = path.match(/\/products\/(.+)/);
+                if (productPath) {
+                    var scriptPath = "/products/" + productPath[1] + ".js";
+                    // Make a fetch call to the script path
+                    const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(scriptPath);
+                    console.log(res);
+                    var variantId = parseInt(new URLSearchParams(window.location.search).get("variant"));
+                    var variant;
+                    if (!isNaN(variantId)) // Find the variant by ID in the variants array
+                    variant = res.variants.find(function(v) {
+                        return v.id === variantId;
+                    });
+                    if (!variant) {
+                        console.log("Variant not found. Using the first variant.");
+                        variant = res.variants[0];
+                    }
+                    // Log the selected variant
+                    console.log(variant);
+                    console.log("Is variant available:", variant.available);
+                    return variant.available;
+                } else return false;
+            } catch (err) {
+                console.log("get product error backinstock: ", err);
+                return true;
+            }
+        }
+        // async function getBackInStockStatus() {
+        //   try {
+        //     var productAvailable = await getProductAvailable();
+        //       if (!productAvailable) {
+        //         const backinstock = await getBackInStockFlow();
+        //         return backinstock;
+        //       } else {
+        //         return {
+        //           enabled: false,
+        //         };
+        //       }
+        //   } catch (err) {
+        //     console.log("get product error backinstock: ", err);
+        //     return {
+        //       enabled: false,
+        //     };
+        //   }
+        // }
+        async function showBackInStockButton() {
+            // Logic to determine if the back in stock button should be displayed
+            // You can customize this based on your requirements
+            var backInStockResponse = localStorage.getItem("backInStockResponse");
+            var productAvailable = await getProductAvailable();
+            if (!productAvailable) {
+                if (backInStockResponse === null || isResponseExpired(backInStockResponse)) {
+                    // Save the response in localStorage with timestamp and expiration
+                    var response = await getBackInStockFlow();
+                    var backInStockData = {
+                        response: response,
+                        timestamp: Date.now(),
+                        expiration: 300000
+                    };
+                    localStorage.setItem("backInStockResponse", JSON.stringify(backInStockData));
+                    // Check if the back in stock button should be added
+                    if (response.enabled) addBackInStockButton();
+                } else {
+                    // Parse the stored response
+                    var storedResponse = JSON.parse(backInStockResponse);
+                    // Check if the back in stock button should be added
+                    if (storedResponse.response.enabled) addBackInStockButton();
+                }
+            } else {
+                var backInStockButton = document.querySelector(".backInStockButton");
+                if (backInStockButton) backInStockButton.parentNode.removeChild(backInStockButton);
+            }
+        }
+        function addBackInStockButton() {
+            var backInStockButton = document.createElement("button");
+            backInStockButton.style.position = "fixed";
+            backInStockButton.style.bottom = "150px"; // Adjusted position
+            backInStockButton.style.left = "20px";
+            backInStockButton.style.padding = "12px";
+            backInStockButton.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+            backInStockButton.style.border = "none";
+            backInStockButton.style.borderRadius = "50%";
+            backInStockButton.style.cursor = "pointer";
+            backInStockButton.style.transition = "transform 0.2s";
+            backInStockButton.style.zIndex = 2147483647;
+            backInStockButton.id = "backInStockButton";
+            // Add a class to the button for easier targeting
+            backInStockButton.classList.add("rocket-backinstock-button");
+            // Use a different Font Awesome icon class
+            var icon = document.createElement("i");
+            icon.classList.add("fas", "fa-cart-plus");
+            backInStockButton.appendChild(icon);
+            backInStockButton.addEventListener("mouseenter", function() {
+                backInStockButton.style.transform = "scale(1.1)";
+            });
+            backInStockButton.addEventListener("mouseleave", function() {
+                backInStockButton.style.transform = "scale(1)";
+            });
+            backInStockButton.addEventListener("click", function() {
+                try {
+                    var path = window.location.pathname;
+                    // Extract the portion of the path after "/products"
+                    var productPath = path.match(/\/products\/(.+)/);
+                    if (productPath) {
+                        // Append ".js" to the extracted product path
+                        var scriptPath = "/products/" + productPath[1] + ".js";
+                        // Make a fetch call to the script path
+                        (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(scriptPath).then((res)=>{
+                            console.log(res);
+                            // Process the fetched data
+                            var variantId = parseInt(new URLSearchParams(window.location.search).get("variant"));
+                            var variant;
+                            if (!isNaN(variantId)) // Find the variant by ID in the variants array
+                            variant = res.variants.find(function(v) {
+                                return v.id === variantId;
+                            });
+                            if (!variant) {
+                                console.log("Variant not found. Using the first variant.");
+                                variant = res.variants[0];
+                            }
+                            // Log the selected variant
+                            console.log(variant);
+                            var pdetails = {
+                                quantity: 0,
+                                product_id: res.id,
+                                title: res.title,
+                                variant_id: variant.id,
+                                image: res.images[0],
+                                productUrl: window.location.href,
+                                domain: window.Shopify.shop,
+                                pushSubID: parseInt(localStorage.rocket_push_pushsub_id)
+                            };
+                            console.log(pdetails);
+                            try {
+                                const payload = pdetails;
+                                (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/backinstock`, "POST", {
+                                    body: payload
+                                }).then((res)=>{
+                                    console.log(`${res}`);
+                                    alert("You will be notified when the item is back in stock.");
+                                });
+                            } catch (err) {
+                                console.log("could not add backinstock listener ", err);
+                            }
+                        });
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+            document.body.appendChild(backInStockButton);
+            // Load Font Awesome CSS dynamically
+            var faStylesheet = document.createElement("link");
+            faStylesheet.rel = "stylesheet";
+            faStylesheet.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
+            document.head.appendChild(faStylesheet);
+        }
+        ///
+        async function rocket_push_register(register, whatsappPhone = "") {
+            // Register Push
+            console.log("Registering new enpoint");
+            const domainresult = await getShopifyDomain1();
+            window.rocket_push_subscription = await register.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: $doa0w.urlBase64ToUint8Array((0, $e83591b9eb3a6a78$export$43b543a1ac59b427))
+            });
+            console.log(rocket_push_subscription);
+            localStorage.setItem("rocket_push_subscription", JSON.stringify(rocket_push_subscription));
+            //pushSubscription
+            const PushSubscriptionData = {
+                shop_domain: domainresult,
+                pushsub_config: rocket_push_subscription
+            };
+            const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/subscription`, "POST", {
+                body: PushSubscriptionData
+            });
+            if (res?.id && res.id != undefined) {
+                localStorage.setItem("rocket_push_pushsub_id", res.id);
+                $80888842c5f91d06$var$insertGATag(res.id);
+                //INSERT PHONE NUMBER
+                if (whatsappPhone) {
+                    const phonePayload = {
+                        phone_number: whatsappPhone,
+                        domain: domainresult,
+                        pushSub_id: res.id
+                    };
+                    try {
+                        const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/subscribePhoneNumber`, "POST", {
+                            body: phonePayload
+                        });
+                        console.log(res);
+                        localStorage.setItem("rocket-phone-id", res.id);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            } else $80888842c5f91d06$var$insertGATag(null);
+            try {
+                const res2 = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/push`, "POST", {
+                    body: {
+                        pushSubscription: rocket_push_subscription,
+                        flow_title: "welcome_title",
+                        push_id: res.id,
+                        shop_domain: domainresult,
+                        phone_id: parseInt(localStorage.getItem("rocket-phone-id"))
+                    }
+                });
+                console.log("starting sequence");
+            } catch (err) {
+                console.log("error fetch welcome: ", err);
+            }
+        }
+        const rocket_push_notification = async (cartToken)=>{
+            try {
+                const domainresult = await getShopifyDomain1();
+                const push_id = localStorage.getItem("rocket_push_pushsub_id");
+                const phone_id = localStorage.getItem("rocket-phone-id");
+                const payload = {
+                    pushSubscription: JSON.parse(localStorage.rocket_push_subscription || "{}"),
+                    flow_title: "reminder_title",
+                    shop_domain: domainresult,
+                    push_id: parseInt(localStorage.rocket_push_pushsub_id || "0"),
+                    cartToken: cartToken,
+                    phone_id: parseInt(localStorage.getItem("rocket-phone-id") || "0")
+                };
+                // need for wp without push. but commented for now because msg on every change
+                // if(!push_id){
+                //   delete payload.cartToken
+                // }
+                if (push_id || phone_id) {
+                    const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/push`, "POST", {
+                        body: payload
+                    });
+                    console.log(`Start push notification\nThere are ${rocket_push_cart_content["item_count"]} items in the cart`);
+                } else console.log("no subscription");
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+        const rocket_push_cart_state = async ()=>{
+            try {
+                const domainresult = await getShopifyDomain1();
+                window.rocket_push_cart_content = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`/cart.js`);
+                const phone_id = localStorage.getItem("rocket-phone-id");
+                const push_id = localStorage.getItem("rocket_push_pushsub_id");
+                let payout = {
+                    shop_domain: domainresult,
+                    pushSubID: parseInt(localStorage.rocket_push_pushsub_id || "0")
+                };
+                console.log("Cart is abandoned");
+                payout = {
+                    ...payout,
+                    abandoncart_config: rocket_push_cart_content,
+                    abandoncart_token: rocket_push_cart_content.token,
+                    item_count: rocket_push_cart_content.item_count
+                };
+                let res;
+                if (push_id) res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/abandonCart`, "POST", {
+                    body: payout
+                });
+                if (res?.isSent) await rocket_push_notification(rocket_push_cart_content.token);
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+        async function getPriceDrop() {
+            try {
+                const data = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/flow?domain=${window.Shopify.shop || window.location.host}&title=pricedrop_title`);
+                console.log(data[0]);
+                return data[0];
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        async function getBackInStockFlow() {
+            try {
+                const data = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/flow?domain=${window.Shopify.shop || window.location.host}&title=backinstock_title`);
+                console.log(data[0]);
+                return data[0];
+            } catch (err) {
+                console.log(err);
+                return {
+                    enabled: false
+                };
+            }
+        }
+        async function getShopifyDomain1() {
+            try {
+                //const data = await sendRequest(`${API_ROCKET_PUSH_BASE_URL}/api/shop/getShopifyDomain?domain=${window.location.host}`);
+                const data = window.Shopify.shop;
+                return data;
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        async function getSetting1() {
+            try {
+                const data = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/shop/settings?domain=${window.Shopify.shop || window.location.host}`);
+                return data;
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+        function checkFooter(settingResponse) {
+            localStorage.getItem("RockDebug") && console.log("checkFooter", settingResponse);
+            try {
+                if (settingResponse.plan !== "1") document.getElementById("rocket-push-footer").style.display = "none";
+            } catch (e) {
+                console.log("cant remove footer: ", e.message);
+            }
+        }
+        window.addEventListener("DOMContentLoaded", function() {
+            checkFooterOnLoad();
+            (0, $8a29086081032de5$export$909b206d73f171f6)();
+        });
+        async function checkFooterOnLoad() {
+            try {
+                var settingResponse = localStorage.getItem("settingResponse");
+                if (!settingResponse || isResponseExpired(settingResponse)) {
+                    var response = await getSetting1();
+                    var settingResponse = {
+                        response: response,
+                        timestamp: Date.now(),
+                        expiration: 300000
+                    };
+                    localStorage.setItem("settingResponse", JSON.stringify(settingResponse));
+                    x;
+                    checkFooter(response);
+                } else {
+                    var storedResponse = JSON.parse(settingResponse);
+                    checkFooter(storedResponse.response);
+                }
+            } catch (err) {
+                console.log("footer: ", err.message);
+            }
+        }
+        async function checkSubscription(register) {
+            window.rocket_push_subscription = await register.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: $doa0w.urlBase64ToUint8Array((0, $e83591b9eb3a6a78$export$43b543a1ac59b427))
+            });
+            const domainresult = await getShopifyDomain1();
+            console.log(rocket_push_subscription);
+            const PushSubscriptionData = {
+                id: parseInt(localStorage.getItem("rocket_push_pushsub_id")),
+                shop_domain: domainresult,
+                pushsub_config: rocket_push_subscription
+            };
+            try {
+                const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/subscription`, "PUT", {
+                    body: PushSubscriptionData
+                });
+                console.log(res);
+                if (res.message === "updated" || res.message === "created") localStorage.setItem("rocket_push_subscription", JSON.stringify(rocket_push_subscription));
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        //////////////////////////////////////////////////////////////////////////
+        if ("serviceWorker" in navigator && !(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)) navigator.serviceWorker.register(`https://${window.location.host}/apps/abc/worker.js`).then(async (register)=>{
+            console.log("Service worker registered!");
+            if (!localStorage.getItem("allow_notification") || localStorage.getItem("allow_notification") != 1) {
+                const isMobile = window.matchMedia("(any-pointer:coarse)").matches;
+                let countShowSubscriberPrompt = 0;
+                // load sweetalert2 script
+                $doa0w.dynamicallyLoadScript("//cdn.jsdelivr.net/npm/sweetalert2@11");
+                // insert overlay HTML
+                let enableOverlay = false;
+                if (configurations?.browserPrompt && configurations.browserPrompt.enableoverlay) {
+                    enableOverlay = true;
+                    $80888842c5f91d06$var$addHTMLOverlay();
+                } else enableOverlay = false;
+                const rocket_overlay_confirmed = localStorage.getItem("rocket_overlay_confirmed");
+                if (!configurations || !configurations?.intermediatePrompt || rocket_overlay_confirmed) {
+                    console.log("Browser prompt does not have configuration OR user has confirmed overlay already");
+                    enableOverlay && !rocket_overlay_confirmed && $80888842c5f91d06$var$turnOnOverlay();
+                    const permission = await Notification.requestPermission();
+                    if (permission === "granted") {
+                        enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                        try {
+                            await rocket_push_register(register, localStorage.getItem("rocket-whatsappPhone") || "");
+                        } catch (err) {
+                            console.error(err);
+                        }
+                        localStorage.setItem("allow_notification", 1);
+                        console.log("Subscription saved");
+                    } else enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                } else {
+                    const isShowSubscriberPrompt = configurations.intermediatePrompt.show;
+                    const subscriberFrequency = configurations.optinTimings.frequency; //days
+                    const subscriberTiming = isMobile ? configurations.optinTimings.mobile : configurations.optinTimings.desktop; //seconds
+                    const maximunSubscriberPrompt = configurations.optinTimings.maxpromptcount;
+                    if (isShowSubscriberPrompt) {
+                        let askTime = false;
+                        let isPauseInterval = false;
+                        const showSubscriberPromptInterval = setInterval(()=>{
+                            if (!isPauseInterval) {
+                                askTime = Date.now() - parseInt(localStorage.getItem("ask_time") ? localStorage.getItem("ask_time") : "0") >= subscriberFrequency * 86400000;
+                                if (askTime && countShowSubscriberPrompt < maximunSubscriberPrompt) {
+                                    isPauseInterval = true;
+                                    setTimeout(showSubscriberPrompt, subscriberTiming * 1000);
+                                }
+                                if (countShowSubscriberPrompt >= maximunSubscriberPrompt) isPauseInterval = true;
+                            }
+                        }, 1000);
+                        const showSubscriberPrompt = ()=>{
+                            const phoneComponent = configurations.intermediatePrompt.enablephonenumber ? '<input type="phone" id="phoneInput" autocomplete="phone" oninput="localStorage.setItem(\'rocket-whatsappPhone\', this.value);" placeholder="Enter your phone" style="margin: 10px 0; padding: 5px; width: 100%;">' : "";
+                            countShowSubscriberPrompt += 1;
+                            Swal.fire({
+                                position: configurations.intermediatePrompt.verticalposition || "top",
+                                width: "400px",
+                                html: '<style> .custom-btn{ padding: 10px 20px; } </style><div style="display: flex; flex-direction: row; height: auto"><img src="' + logoImage + ' " width="auto" height="50px" style="height: 50px !important;" />' + '    <div style="margin-left: 10px; text-align: left">' + '    <span style="font-weight: bold; font-size: 18px">' + configurations.intermediatePrompt.title + "        </span>" + '        <p style="font-size: 14px; margin: 10px 0;">' + configurations.intermediatePrompt.description + "        </p>" + phoneComponent + "    </div>" + "</div>",
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                focusConfirm: true,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                confirmButtonColor: configurations.buttonAllow.bgcolor,
+                                cancelButtonColor: configurations.buttonLater.bgcolor,
+                                customClass: {
+                                    cancelButton: "custom-btn",
+                                    confirmButton: "custom-btn"
+                                },
+                                confirmButtonText: '<span style="color: ' + configurations.buttonAllow.textcolor + ';">' + configurations.buttonAllow.title + "</span>",
+                                cancelButtonText: '<span style=" color: ' + configurations.buttonLater.textcolor + ' ">' + configurations.buttonLater.title + "</span>"
+                            }).then(async (result)=>{
+                                if (result.isConfirmed) {
+                                    isPauseInterval = true;
+                                    enableOverlay && !localStorage.getItem("rocket_overlay_confirmed") && $80888842c5f91d06$var$turnOnOverlay();
+                                    localStorage.setItem("rocket_overlay_confirmed", 1);
+                                    const permission = await Notification.requestPermission();
+                                    if (permission === "granted") {
+                                        enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                                        try {
+                                            await rocket_push_register(register, localStorage.getItem("rocket-whatsappPhone") || "");
+                                        } catch (err) {
+                                            console.error(err);
+                                        }
+                                        localStorage.setItem("allow_notification", 1);
+                                        console.log("Subscription saved");
+                                    } else enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                                } else {
+                                    localStorage.setItem("ask_time", Date.now());
+                                    isPauseInterval = false;
+                                }
+                            });
+                        };
+                    } else {
+                        enableOverlay && $80888842c5f91d06$var$turnOnOverlay();
+                        const permission = await Notification.requestPermission();
+                        if (permission === "granted") {
+                            enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                            try {
+                                await rocket_push_register(register, localStorage.getItem("rocket-whatsappPhone") || "");
+                            } catch (err) {
+                                console.error(err);
+                            }
+                            localStorage.setItem("allow_notification", 1);
+                            console.log("Subscription saved");
+                        } else enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                    }
+                }
+            } else {
+                await checkSubscription(register);
+                $80888842c5f91d06$var$insertGATag(parseInt(localStorage.getItem("rocket_push_pushsub_id")));
+            }
+        }).catch((error)=>{
+            console.warn("Error registering service worker:");
+            console.warn(error);
+        });
+        var rocket_push_native_fetch = window.fetch;
+        window.fetch = async (...args)=>{
+            // console.log("calling RocketPush fetch function3: ", args);
+            localStorage.getItem("RockDebug") && console.log(typeof args[0], "--", args[0]);
+            if (typeof args[0] === "string") {
+                const cartURL = args[0];
+                if (cartURL.includes("/cart/add") || cartURL.includes("/cart/change") || cartURL.includes("/cart/update") || cartURL.includes("/cart.js")) try {
+                    console.log("RocketPush cart change detected");
+                    setTimeout(rocket_push_cart_state, 500);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            }
+            return rocket_push_native_fetch.apply(window, args);
+        };
+    } else {
+        console.log("klavyio-rocket-integrated shop");
+        // Function to check if the stored response has expired
+        function isResponseExpired(response) {
+            var storedResponse = JSON.parse(response);
+            // Compare the stored response timestamp with the current time
+            var currentTime = Date.now();
+            var expirationTime = storedResponse.timestamp + storedResponse.expiration;
+            return currentTime > expirationTime;
+        }
+        function handleInputChange(event) {
+            // Handle input value change
+            console.log(`Value of ${event.target.name} changed to: ${event.target.value}`);
+            if (event.target.name == "email") localStorage.setItem("klaviyoEmail", event.target.value);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Document Loaded");
+            setTimeout(function() {
+                var form = document.querySelector(".klaviyo-form");
+                if (form) {
+                    var formElements = form.querySelectorAll("input");
+                    formElements.forEach(function(element) {
+                        // Attach input event listener to each input element
+                        element.addEventListener("input", handleInputChange);
+                    });
+                } else console.error("Form not found.");
+            }, 2000); // Wait for 2 seconds after DOM load
+        });
+        //OVERLAY BUTTON END -----------------------
+        ///
+        async function rocket_push_register(register, email = "") {
+            // Register Push
+            console.log("Registering new enpoint");
+            console.log("email is :", email);
+            const domainresult = await (0, $19a6bb8bdb5af322$export$c0e54dca4b1c7623)();
+            window.rocket_push_subscription = await register.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: $doa0w.urlBase64ToUint8Array((0, $e83591b9eb3a6a78$export$43b543a1ac59b427))
+            });
+            console.log(rocket_push_subscription);
+            localStorage.setItem("rocket_push_subscription", JSON.stringify(rocket_push_subscription));
+            //pushSubscription
+            const PushSubscriptionData = {
+                shop_domain: domainresult,
+                pushsub_config: rocket_push_subscription
+            };
+            const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/subscription`, "POST", {
+                body: PushSubscriptionData
+            });
+            if (res?.id && res.id != undefined) {
+                localStorage.setItem("rocket_push_pushsub_id", res.id);
+                $80888842c5f91d06$var$insertGATag(res.id);
+            } else $80888842c5f91d06$var$insertGATag(null);
+            try {
+                const res3 = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/update-klaviyo`, "PATCH", {
+                    body: {
+                        rocketpushdata: rocket_push_subscription,
+                        email: localStorage.getItem("klaviyoEmail"),
+                        rocket_push_pushsub_id: res.id
+                    }
+                });
+                console.log(res3);
+            } catch (err) {
+                console.log("error klaviyo: ", err);
+            }
+            try {
+                const res2 = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/push`, "POST", {
+                    body: {
+                        pushSubscription: rocket_push_subscription,
+                        flow_title: "welcome_title",
+                        push_id: res.id,
+                        shop_domain: domainresult
+                    }
+                });
+                console.log("starting sequence");
+            } catch (err) {
+                console.log("error fetch welcome: ", err);
+            }
+        }
+        async function getConfiguration1() {
+            try {
+                const data = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/configuration?domain=${window.Shopify.shop || window.location.host}`);
+                return JSON.parse(data[0].configuration);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        function checkFooter(settingResponse) {
+            console.log("Checking for footer");
+            localStorage.getItem("RockDebug") && console.log("checkFooter", settingResponse);
+            try {
+                if (settingResponse.plan !== "1") document.getElementById("rocket-push-footer").style.display = "none";
+            } catch (e) {
+                console.log("cant remove footer: ", e.message);
+            }
+        }
+        window.addEventListener("DOMContentLoaded", function() {
+            console.log("DOM loaded");
+            checkFooterOnLoad();
+            (0, $8a29086081032de5$export$909b206d73f171f6)(configurations);
+        });
+        async function checkFooterOnLoad() {
+            try {
+                var settingResponse = localStorage.getItem("settingResponse");
+                if (!settingResponse || isResponseExpired(settingResponse)) {
+                    var response = await (0, $19a6bb8bdb5af322$export$8206e8d612b3e63)();
+                    var settingResponse = {
+                        response: response,
+                        timestamp: Date.now(),
+                        expiration: 300000
+                    };
+                    localStorage.setItem("settingResponse", JSON.stringify(settingResponse));
+                    checkFooter(response);
+                } else {
+                    var storedResponse = JSON.parse(settingResponse);
+                    checkFooter(storedResponse.response);
+                }
+            } catch (err) {
+                console.log("footer: ", err.message);
+            }
+        }
+        async function checkSubscription(register) {
+            window.rocket_push_subscription = await register.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: $doa0w.urlBase64ToUint8Array((0, $e83591b9eb3a6a78$export$43b543a1ac59b427))
+            });
+            const domainresult = await (0, $19a6bb8bdb5af322$export$c0e54dca4b1c7623)();
+            console.log(rocket_push_subscription);
+            const PushSubscriptionData = {
+                id: parseInt(localStorage.getItem("rocket_push_pushsub_id")),
+                shop_domain: domainresult,
+                pushsub_config: rocket_push_subscription
+            };
+            try {
+                const res = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$78188db61609330b)}/api/subscription`, "PUT", {
+                    body: PushSubscriptionData
+                });
+                console.log(res);
+                if (res.message === "updated" || res.message === "created") localStorage.setItem("rocket_push_subscription", JSON.stringify(rocket_push_subscription));
+            } catch (e) {
+                console.log(e.message);
+            }
+            try {
+                const res3 = await (0, $19a6bb8bdb5af322$export$d5a1e65f8aa21b51)(`${(0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3)}/api/update-klaviyo`, "PATCH", {
+                    body: {
+                        rocketpushdata: rocket_push_subscription,
+                        email: localStorage.getItem("klaviyoEmail")
+                    }
+                });
+                console.log(res3);
+            } catch (err) {
+                console.log("error klaviyo: ", err);
+            }
+        }
+        //////////////////////////////////////////////////////////////////////////
+        if ("serviceWorker" in navigator && !(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)) navigator.serviceWorker.register(`https://${window.location.host}/apps/abc/worker.js`).then(async (register)=>{
+            console.log("Service worker registered!");
+            if (!localStorage.getItem("allow_notification") || localStorage.getItem("allow_notification") != 1) {
+                const isMobile = window.matchMedia("(any-pointer:coarse)").matches;
+                let countShowSubscriberPrompt = 0;
+                // load sweetalert2 script
+                $doa0w.dynamicallyLoadScript("//cdn.jsdelivr.net/npm/sweetalert2@11");
+                // store setting
+                const storeSetting = await (0, $19a6bb8bdb5af322$export$8206e8d612b3e63)((0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3));
+                const logoImage = storeSetting?.logoimgsrc ? storeSetting.logoimgsrc : "";
+                // subscriber prompt
+                const promptConfig = await getConfiguration1((0, $e83591b9eb3a6a78$export$f7b4ca6741cbc1c3));
+                // insert overlay HTML
+                let enableOverlay = false;
+                if (promptConfig?.browserPrompt && promptConfig.browserPrompt.enableoverlay) {
+                    enableOverlay = true;
+                    $80888842c5f91d06$var$addHTMLOverlay();
+                } else enableOverlay = false;
+                const rocket_overlay_confirmed = localStorage.getItem("rocket_overlay_confirmed");
+                if (!promptConfig || !promptConfig?.intermediatePrompt || rocket_overlay_confirmed) {
+                    console.log("Browser prompt does not have configuration OR user has confirmed overlay already");
+                    enableOverlay && !rocket_overlay_confirmed && $80888842c5f91d06$var$turnOnOverlay();
+                    const permission = await Notification.requestPermission();
+                    if (permission === "granted") {
+                        enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                        try {
+                            await rocket_push_register(register, localStorage.getItem("klaviyoEmail") || "");
+                        } catch (err) {
+                            console.error(err);
+                        }
+                        localStorage.setItem("allow_notification", 1);
+                        console.log("Subscription saved");
+                    } else enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                } else {
+                    const isShowSubscriberPrompt = promptConfig.intermediatePrompt.show;
+                    const subscriberFrequency = promptConfig.optinTimings.frequency; //days
+                    const subscriberTiming = isMobile ? promptConfig.optinTimings.mobile : promptConfig.optinTimings.desktop; //seconds
+                    const maximunSubscriberPrompt = promptConfig.optinTimings.maxpromptcount;
+                    if (isShowSubscriberPrompt) {
+                        let askTime = false;
+                        let isPauseInterval = false;
+                        const showSubscriberPromptInterval = setInterval(()=>{
+                            if (!isPauseInterval) {
+                                askTime = Date.now() - parseInt(localStorage.getItem("ask_time") ? localStorage.getItem("ask_time") : "0") >= subscriberFrequency * 86400000;
+                                if (askTime && countShowSubscriberPrompt < maximunSubscriberPrompt) {
+                                    isPauseInterval = true;
+                                    setTimeout(showSubscriberPrompt, subscriberTiming * 1000);
+                                }
+                                if (countShowSubscriberPrompt >= maximunSubscriberPrompt) isPauseInterval = true;
+                            }
+                        }, 1000);
+                        const showSubscriberPrompt = ()=>{
+                            countShowSubscriberPrompt += 1;
+                            Swal.fire({
+                                position: promptConfig.intermediatePrompt.verticalposition || "top",
+                                width: "400px",
+                                html: '<style>.custom-btn { padding: 10px 20px; }.prompt-container { display: flex; align-items: center; height: 130px;  }.prompt-container img { width: auto; height: 50px; }.prompt-content { margin-left: 20px; }.prompt-title { font-weight: bold; font-size: 18px; }.prompt-description { font-size: 14px; margin-top: 5px; }#emailInput { padding: 8px; width: 100%; border: 1px solid #ccc; border-radius: 5px; }</style><div class="prompt-container"><img src="' + logoImage + '">' + '<div class="prompt-content">' + '<span class="prompt-title">' + promptConfig.intermediatePrompt.title + "</span>" + '<p class="prompt-description">' + promptConfig.intermediatePrompt.description + "</p>" + '<input type="email" id="emailInput" autocomplete="email" oninput="localStorage.setItem(\'klaviyoEmail\', this.value);" placeholder="Enter your email" style="margin: 10px 0; padding: 5px; width: 100%;">' + "</div>" + "</div>",
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                focusConfirm: true,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                confirmButtonColor: promptConfig.buttonAllow.bgcolor,
+                                cancelButtonColor: promptConfig.buttonLater.bgcolor,
+                                customClass: {
+                                    cancelButton: "custom-btn",
+                                    confirmButton: "custom-btn"
+                                },
+                                confirmButtonText: '<span style="color: ' + promptConfig.buttonAllow.textcolor + ';">' + promptConfig.buttonAllow.title + "</span>",
+                                cancelButtonText: '<span style=" color: ' + promptConfig.buttonLater.textcolor + ' ">' + promptConfig.buttonLater.title + "</span>",
+                                preConfirm: ()=>{
+                                    const emailInput = document.getElementById("emailInput");
+                                    if (!emailInput.value.trim()) Swal.showValidationMessage("Please enter your email");
+                                    return emailInput.value.trim();
+                                }
+                            }).then(async (result)=>{
+                                if (result.isConfirmed) {
+                                    isPauseInterval = true;
+                                    enableOverlay && !localStorage.getItem("rocket_overlay_confirmed") && $80888842c5f91d06$var$turnOnOverlay();
+                                    localStorage.setItem("rocket_overlay_confirmed", 1);
+                                    const permission = await Notification.requestPermission();
+                                    if (permission === "granted") {
+                                        enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                                        try {
+                                            await rocket_push_register(register, localStorage.getItem("klaviyoEmail") || "");
+                                        } catch (err) {
+                                            console.error(err);
+                                        }
+                                        localStorage.setItem("allow_notification", 1);
+                                        console.log("Subscription saved");
+                                    } else enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                                } else {
+                                    localStorage.setItem("ask_time", Date.now());
+                                    isPauseInterval = false;
+                                }
+                            });
+                        };
+                    } else {
+                        enableOverlay && $80888842c5f91d06$var$turnOnOverlay();
+                        const permission = await Notification.requestPermission();
+                        if (permission === "granted") {
+                            enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                            try {
+                                await rocket_push_register(register, localStorage.getItem("klaviyoEmail") || "");
+                            } catch (err) {
+                                console.error(err);
+                            }
+                            localStorage.setItem("allow_notification", 1);
+                            console.log("Subscription saved");
+                        } else enableOverlay && $80888842c5f91d06$var$turnOffOverlay();
+                    }
+                }
+            } else {
+                await checkSubscription(register);
+                $80888842c5f91d06$var$insertGATag(parseInt(localStorage.getItem("rocket_push_pushsub_id")));
+            }
+        }).catch((error)=>{
+            console.warn("Error registering service worker:");
+            console.warn(error);
+        });
+    }
+}
+
+
+if (null) {
+    null.dispose(function() {
+    // module is about to be replaced
+    });
+    null.accept(function() {
+    // module or one of its dependencies was just updated
+    });
+}
+const $d3928351bb4a0237$var$noFooterShopArray = [
+    "alishtest.myshopify.com",
+    "508f7c-16.myshopify.com",
+    "efb3e7-cd.myshopify.com",
+    "corclow.myshopify.com",
+    "566267.myshopify.com"
+];
+if (window.Shopify && $d3928351bb4a0237$var$noFooterShopArray.includes(window.Shopify.shop)) {
+    // Set the div to invisible
+    console.log(" no footer shop rp ");
+    try {
+        document.getElementById("rocket-push-footer").style.display = "none";
+    } catch (e) {
+        console.log("couldnt remove footer: ", e);
+    }
+}
+
+if (localStorage.getItem("RocDis") == null) {
+    // console.log("RocDis is null");
+    const Utils = (parcelRequire("doa0w"));
+    console.log("DEV SCRIPT3");
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    (0, $80888842c5f91d06$export$f22da7240b7add18)();
+} else console.log("RocketPush is disabled");
+
+
