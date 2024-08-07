@@ -1,0 +1,140 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Michael Jordan",
+            "profilePhoto": "https://example.com/photos/michael_jordan.jpg",
+            "stars": 5,
+            "testimonialTitle": "Iconic Style ⭐️",
+            "testimonialText": "I love Jordan Craig’s clothing because it embodies the same legendary quality as my game. Their shirts and pants offer both style and comfort for every occasion. 👕👖"
+        },
+        {
+            "id": 2,
+            "name": "LeBron James",
+            "profilePhoto": "https://example.com/photos/lebron_james.jpg",
+            "stars": 5,
+            "testimonialTitle": "King of Fashion",
+            "testimonialText": "I trust Jordan Craig for all my wardrobe needs. From sleek shorts to fashionable tees, their collection has everything I need to stay stylish on and off the court."
+        },
+        {
+            "id": 3,
+            "name": "Stephen Curry",
+            "profilePhoto": "https://example.com/photos/stephen_curry.jpg",
+            "stars": 5,
+            "testimonialTitle": "Three-Point Style 🌟",
+            "testimonialText": "I love Jordan Craig’s casual wear. Their shorts and sweatshirts are perfect for game days or relaxing weekends. 🏀"
+        },
+        {
+            "id": 4,
+            "name": "Kobe Bryant",
+            "profilePhoto": "https://example.com/photos/kobe_bryant.jpg",
+            "stars": 4,
+            "testimonialTitle": "Mamba Style",
+            "testimonialText": "Jordan Craig captures the essence of my style with their premium shirts and pants. The high-quality materials and cutting-edge designs make me feel like a true Mamba."
+        },
+        {
+            "id": 5,
+            "name": "Shaquille O'Neal",
+            "profilePhoto": "https://example.com/photos/shaquille_oneal.jpg",
+            "stars": 4,
+            "testimonialTitle": "Big Man, Big Style",
+            "testimonialText": "I appreciate Jordan Craig’s bold and comfortable apparel. Their oversized tees and relaxed pants fit perfectly and keep me stylish without sacrificing comfort."
+        },
+        {
+            "id": 6,
+            "name": "Kevin Durant",
+            "profilePhoto": "https://example.com/photos/kevin_durant.jpg",
+            "stars": 5,
+            "testimonialTitle": "Scoring in Style",
+            "testimonialText": "I rely on Jordan Craig’s stylish collection. Their joggers and hoodies blend performance with fashion, keeping me looking sharp on and off the court."
+        },
+        {
+            "id": 7,
+            "name": "Giannis Antetokounmpo",
+            "profilePhoto": "https://example.com/photos/giannis_antetokounmpo.jpg",
+            "stars": 5,
+            "testimonialTitle": "Greek Freak Fashion",
+            "testimonialText": "I enjoy Jordan Craig’s high-quality clothing. Their shorts and shirts are designed for both athletic performance and casual elegance."
+        },
+        {
+            "id": 8,
+            "name": "Larry Bird",
+            "profilePhoto": "https://example.com/photos/larry_bird.jpg",
+            "stars": 5,
+            "testimonialTitle": "Bird’s Choice",
+            "testimonialText": "I’ve included Jordan Craig’s classic and comfortable pieces in my wardrobe. Their pants and polos are perfect for any classic look."
+        },
+        {
+            "id": 9,
+            "name": "Magic Johnson",
+            "profilePhoto": "https://example.com/photos/magic_johnson.jpg",
+            "stars": 5,
+            "testimonialTitle": "Magic in Every Stitch",
+            "testimonialText": "I trust Jordan Craig for my stylish essentials. Their shirts and shorts offer unmatched comfort and flair."
+        },
+        {
+            "id": 10,
+            "name": "Wilt Chamberlain",
+            "profilePhoto": "https://example.com/photos/wilt_chamberlain.jpg",
+            "stars": 5,
+            "testimonialTitle": "Legendary Comfort",
+            "testimonialText": "I find Jordan Craig’s clothing to be both stylish and comfortable. Their tees and joggers are perfect for any legendary figure."
+        },
+        {
+            "id": 11,
+            "name": "Kareem Abdul-Jabbar",
+            "profilePhoto": "https://example.com/photos/kareem_abdul_jabbar.jpg",
+            "stars": 5,
+            "testimonialTitle": "Sky Hook Approved",
+            "testimonialText": "I love Jordan Craig’s classic styles. Their shorts and hoodies provide the perfect blend of comfort and functionality."
+        },
+        {
+            "id": 12,
+            "name": "Hakeem Olajuwon",
+            "profilePhoto": "https://example.com/photos/hakeem_olajuwon.jpg",
+            "stars": 5,
+            "testimonialTitle": "Dream Fit",
+            "testimonialText": "I enjoy the excellent fit of Jordan Craig’s clothing. Their range of shirts and pants ensures I stay stylish while moving with ease."
+        },
+        {
+            "id": 13,
+            "name": "Angel Reese",
+            "profilePhoto": "https://example.com/photos/angel_reese.jpg",
+            "stars": 5,
+            "testimonialTitle": "Rising Star 🌟",
+            "testimonialText": "I love Jordan Craig’s trendy and comfortable attire. Their collection of shorts and tees is perfect for any aspiring athlete. 🌟"
+        },
+        {
+            "id": 14,
+            "name": "Caitlin Clark",
+            "profilePhoto": "https://example.com/photos/caitlin_clark.jpg",
+            "stars": 5,
+            "testimonialTitle": "Elite Attire",
+            "testimonialText": "I trust Jordan Craig for stylish and high-quality gear. Their shirts and pants are ideal for any top performer."
+        },
+        {
+            "id": 15,
+            "name": "JuJu Watkins",
+            "profilePhoto": "https://example.com/photos/juju_watkins.jpg",
+            "stars": 5,
+            "testimonialTitle": "Future Star 🌟",
+            "testimonialText": "I’m thrilled with Jordan Craig’s fashionable collection. Their shorts and hoodies are perfect for making a statement on and off the court. 🌟"
+        },
+        {
+            "id": 16,
+            "name": "Cameron Brink",
+            "profilePhoto": "https://example.com/photos/cameron_brink.jpg",
+            "stars": 5,
+            "testimonialTitle": "Top Prospect",
+            "testimonialText": "I enjoy Jordan Craig’s top-quality apparel. Their stylish shirts and joggers are a great fit for any future star."
+        },
+        {
+            "id": 17,
+            "name": "Ta'Niya Latson",
+            "profilePhoto": "https://example.com/photos/taniya_latson.jpg",
+            "stars": 5,
+            "testimonialTitle": "Exciting Talent",
+            "testimonialText": "I love the modern and stylish clothing from Jordan Craig. Their collection of shorts and tees is perfect for any athlete with a flair for fashion."
+        }
+    ]
+}
