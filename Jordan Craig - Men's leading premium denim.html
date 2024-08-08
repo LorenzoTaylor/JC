@@ -4730,15 +4730,46 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <style>
     .swiper {
-      
+
       width: 90vw;
       height: 100vh;
     }
-
-    .fits-img{
+    /* Default styles for .fits-img */
+    .fits-img {
       height: 80vh;
-      width: 270px;
+      width: 21.8vw; /* Default width for screens above 1240px */
       object-fit: cover;
+    }
+
+    /* Media queries */
+    @media (max-width: 1240px) {
+      .fits-img {
+        width: 28.9vw; /* Width for screens between 1020px and 1240px */
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .fits-img {
+        width: 40vw; /* Width for screens between 800px and 1020px */
+      }
+    }
+
+    @media (max-width: 250px) {
+      .fits-img {
+        width: 80vw; /* Width for screens 800px and below */
+      }
+    }
+    
+    @media (max-width: 800px) {
+      .fits-img {
+        width: 45vw; /* Width for screens 800px and below */
+      }
+    }
+
+    @media (min-width: 3000px) {
+      .fits-img {
+        width: 20vw; /* Width for screens above 3000px */
+      }
     }
 
     .swiper-slide{
@@ -4749,7 +4780,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     .swiper-button-prev,
     .swiper-button-next{
-      color: black;
+      color: white;
     }
 
 
@@ -4768,7 +4799,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     .swiper-pagination-bullet-active {
      background-color: #000 !important;
-}
+  }
   </style>
 
   <h1 class="fits-h1 fits-text">
@@ -4785,7 +4816,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       <div class="swiper-slide">
         <img class="fits-img" src="Jordan Craig - Men's leading premium denim_files\Snapinsta.app_451723128_2200358777005428_1709060695075211987_n_1080.jpg"/>
-        
+
       </div>
 
       <div class="swiper-slide">
@@ -4803,7 +4834,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="swiper-slide">
         <img class="fits-img" src="Jordan Craig - Men's leading premium denim_files\Snapinsta.app_450361902_18244288681251575_1673500286152262070_n_1080.jpg"/>
       </div>
-      
+
       <div class="swiper-slide">
         <img class="fits-img" src="./Jordan Craig - Men's leading premium denim_files/Snapinsta.app_450999967_18342829084143253_3254195652431481101_n_1080.jpg"/>
       </div>
@@ -4865,19 +4896,19 @@ document.addEventListener("DOMContentLoaded", function() {
         },
       1240: {
         slidesPerView: 4,
-        
+
         },
       1460: {
         slidesPerView: 4,
         },
       1640: {
         slidesPerView: 4,
-        
+
         },
       },
     });
 
-    
+
   </script>
 
 
